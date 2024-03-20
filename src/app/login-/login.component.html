@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="signin-form">
+      <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <div class="input-wrapper">
+            <input type="email" formControlName="email" class="form-control" placeholder="Email">
+            <div *ngIf="submitted && signinForm.controls.email.errors?.required" class="error">Email is required</div>
+            <div *ngIf="submitted && signinForm.controls.email.errors?.email" class="error">Invalid email</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-wrapper">
+            <input type="password" formControlName="password" class="form-control" placeholder="Password">
+            <div *ngIf="submitted && signinForm.controls.password.errors?.required" class="error">Password is required</div>
+          </div>
+        </div>
+        <div class="forgot-password">
+          <a routerLink="/forgot-password">Forgot Password</a>
+        </div>
+        <div class="form-group">
+          <button type="submit" [disabled]="loading">SIGN IN</button>
+        </div>
+       
+      </form>
+      <div class="create-account-link">
+        Don't have an account? <a routerLink="/signup">Create an Account</a>
+      </div>
+    </div>
+  </div>
+  
