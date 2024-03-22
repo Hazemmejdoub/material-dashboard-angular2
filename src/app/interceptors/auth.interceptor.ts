@@ -35,7 +35,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   handleTokenExpiredError(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return this.authService.RefreshToken().pipe(
+    return this.authService.refreshTokens().pipe(
       switchMap(() => {
         const accessToken = localStorage.getItem('internalAccessToken');
         if (this.authService.isAuthenticated && accessToken) {

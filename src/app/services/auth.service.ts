@@ -10,15 +10,21 @@ import { User } from './auth.types';
   providedIn: 'root'
 })
 export class AuthService {
-  authUrl = 'http://localhost:3200/auth';
-  internalAccessToken = 'internalAccessToken';
-  internalRefreshToken = 'internalRefreshToken';
+  private readonly authUrl = 'http://localhost:3200/auth';
+  private readonly internalAccessToken = 'internalAccessToken';
+  private readonly internalRefreshToken = 'internalRefreshToken';
 
   isAuthenticated: boolean;
   accessToken?: string;
   refreshToken?: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.loadTokens();
+  }
+
+  loadTokens() {
+    
+  }
 
 
   saveTokens(accessToken: string, refreshToken: string) {
@@ -60,7 +66,7 @@ export class AuthService {
   }
 
 
-  RefreshToken(): Observable<{ accessToken: string, refreshToken: string }> {
+  refreshTokens(): Observable<{ accessToken: string, refreshToken: string }> {
     return this.http.post<{ accessToken: string, refreshToken: string }>(`${this.authUrl}/refresh-token`, { refreshToken: this.refreshToken }).pipe(
       catchError((error) => {
         console.error('Erreur lors du rafraîchissement du token :', error);
